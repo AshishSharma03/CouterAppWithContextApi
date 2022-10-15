@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useReducer } from 'react'
+import DecButton from './component/DecButton';
+import Display from './component/Display';
+import IncButton from './component/IncButton';
+import { CounterContext } from './Store/CouterContext';
+import Reducer, { initialState } from './Store/Store'
+import './App.css'
+import ResetButton from './component/ResetButton';
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  const [count , dispatch] = useReducer(Reducer,initialState);
+    
+   
+   return (  
+    <CounterContext.Provider value={{count ,dispatch}}>
+   <div className="App">
+    <div className='CounterBox'>
+        <IncButton />
+        <Display/>
+        <DecButton/>
     </div>
-  );
+    
+      <ResetButton/>
+   </div>
+    </CounterContext.Provider>
+  )
 }
 
-export default App;
+export default App
